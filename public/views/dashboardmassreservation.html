@@ -1,0 +1,263 @@
+<!--Navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark primary-color">
+    <div class="container">
+
+        <!-- Navbar brand -->
+        <a class="navbar-brand" href="#">ADMIN DASHBOARD</a>
+
+        <!-- Collapse button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+            aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="basicExampleNav">
+
+            <!-- Links -->
+            <ul class="navbar-nav ml-auto">
+
+                <!-- Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">ADMIN</a>
+                    <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+
+            </ul>
+            <!-- Links -->
+        </div>
+        <!-- Collapsible content -->
+    </div>
+
+</nav>
+<!--/.Navbar-->
+
+<main class="container">
+    <h1 class="m-5 text-center"> MASS RESERVATION</h1>
+    <div class="row">
+        <div class="col-md-4">
+            <ul class="list-group">
+                <a href="/#!/dashboard/massreservation">
+                    <li class="list-group-item d-flex justify-content-between align-items-center active">
+                        Mass Reservation
+                        <span class="badge badge-primary badge-pill">14</span>
+                    </li>
+                </a>
+                <a href="/#!/dashboard/newsfeed">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Newsfeed
+                        <span class="badge badge-primary badge-pill">14</span>
+                    </li>
+                </a>
+                <a href="/#!/dashboard/contacts">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Contacts
+                        <span class="badge badge-primary badge-pill">14</span>
+                    </li>
+                </a>
+            </ul>
+        </div>
+        <div class="col-md-8">
+            <!-- Editable table -->
+            <div class="card">
+                <div class="card-body">
+                    <div id="table" class="table-editable">
+                        <span class="table-add float-right mb-3 mr-2"><button data-toggle="modal" data-target="#modalLoginForm"
+                                class="btn btn-outline-primary waves-effect">ADD</button></span>
+                        <table class="table table-bordered table-responsive-md table-striped text-center">
+                            <tr>
+                                <th class="text-center">Person Name</th>
+                                <th class="text-center">Age</th>
+                                <th class="text-center">Company Name</th>
+                                <th class="text-center">Country</th>
+                                <th class="text-center">City</th>
+                                <th class="text-center">Remove</th>
+                            </tr>
+                            <tr>
+                                <td class="pt-3-half" contenteditable="true">Aurelia Vega</td>
+                                <td class="pt-3-half" contenteditable="true">30</td>
+                                <td class="pt-3-half" contenteditable="true">Deepends</td>
+                                <td class="pt-3-half" contenteditable="true">Spain</td>
+                                <td class="pt-3-half" contenteditable="true">Madrid</td>
+                                <td>
+                                    <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                                </td>
+                            </tr>
+                            <!-- This is our clonable table line -->
+                            <tr>
+                                <td class="pt-3-half" contenteditable="true">Guerra Cortez</td>
+                                <td class="pt-3-half" contenteditable="true">45</td>
+                                <td class="pt-3-half" contenteditable="true">Insectus</td>
+                                <td class="pt-3-half" contenteditable="true">USA</td>
+                                <td class="pt-3-half" contenteditable="true">San Francisco</td>
+                                <td>
+                                    <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                                </td>
+                            </tr>
+                            <!-- This is our clonable table line -->
+                            <tr>
+                                <td class="pt-3-half" contenteditable="true">Guadalupe House</td>
+                                <td class="pt-3-half" contenteditable="true">26</td>
+                                <td class="pt-3-half" contenteditable="true">Isotronic</td>
+                                <td class="pt-3-half" contenteditable="true">Germany</td>
+                                <td class="pt-3-half" contenteditable="true">Frankfurt am Main</td>
+                                <td>
+                                    <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                                </td>
+                            </tr>
+                            <!-- This is our clonable table line -->
+                            <tr class="hide">
+                                <td class="pt-3-half" contenteditable="true">Elisa Gallagher</td>
+                                <td class="pt-3-half" contenteditable="true">31</td>
+                                <td class="pt-3-half" contenteditable="true">Portica</td>
+                                <td class="pt-3-half" contenteditable="true">United Kingdom</td>
+                                <td class="pt-3-half" contenteditable="true">London</td>
+                                <td>
+                                    <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Editable table -->
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="page-footer font-small primary-color fixed-bottom pt-4">
+
+    <!-- Footer Text -->
+    <div class="container text-center text-md-left">
+
+        <!-- Grid row -->
+        <div class="row">
+
+            <!-- Grid column -->
+            <div class="col-md-6 mt-md-0 mt-3">
+
+                <!-- Content -->
+                <h5 class="text-uppercase font-weight-bold">Footer text 1</h5>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Expedita sapiente sint, nulla, nihil
+                    repudiandae commodi voluptatibus corrupti animi sequi aliquid magnam debitis, maxime quam
+                    recusandae harum esse fugiat. Itaque, culpa?</p>
+
+            </div>
+            <!-- Grid column -->
+
+            <hr class="clearfix w-100 d-md-none pb-3">
+
+            <!-- Grid column -->
+            <div class="col-md-6 mb-md-0 mb-3">
+
+                <!-- Content -->
+                <h5 class="text-uppercase font-weight-bold">Footer text 2</h5>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio deserunt fuga perferendis modi earum
+                    commodi aperiam temporibus quod nulla nesciunt aliquid debitis ullam omnis quos ipsam, aspernatur
+                    id excepturi hic.</p>
+
+            </div>
+            <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+    </div>
+    <!-- Footer Text -->
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2018 Copyright:
+        <a href="https://mdbootstrap.com/bootstrap-tutorial/"> MDBootstrap.com</a>
+    </div>
+    <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+
+
+
+
+
+<div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">RESERVE MASS</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3">
+                    <div class="form-row">
+                        <!-- Grid column -->
+                        <div class="col-md-6">
+                            <!-- Material input -->
+                            <div class="md-form form-group">
+                                <input type="text" class="form-control" id="firstName">
+                                <label for="firstName">First Name</label>
+                            </div>
+                        </div>
+                        <!-- Grid column -->
+
+                        <!-- Grid column -->
+                        <div class="col-md-6">
+                            <!-- Material input -->
+                            <div class="md-form form-group">
+                                <input type="password" class="form-control" id="lastName">
+                                <label for="lastName">Last Name</label>
+                            </div>
+                        </div>
+                        <!-- Grid column -->
+                    </div>
+                    <!-- Grid row -->
+
+                    <!-- Grid row -->
+                    <div class="row">
+                        <!-- Grid column -->
+                        <div class="col-md-12">
+                            <!-- Material input -->
+                            <div class="md-form form-group">
+                                <select class="select-dropdown" id="massType">
+                                    <option value="" disabled selected>Type of Mass</option>
+                                    <option value="1" class="dropdown-content">Option 1</option>
+                                    <option value="2" class="dropdown-content">Option 2</option>
+                                    <option value="3" class="dropdown-content">Option 3</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <!-- Material input -->
+                            <div class="md-form form-group">
+                                <input type="date" class="form-control">
+                            </div>
+                        </div>
+                        <!-- Grid column -->
+
+                        <!-- Grid column -->
+                        <div class="col-md-12">
+                            <!-- Material input -->
+                            <div class="md-form form-group">
+                                <textarea type="text" id="form7" class="md-textarea form-control" rows="3"></textarea>
+                                <label for="form7">Details</label>
+                            </div>
+
+                        </div>
+                        <!-- Grid column -->
+                    </div>
+                    <!-- Grid row -->
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary">ADD</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

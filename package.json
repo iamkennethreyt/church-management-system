@@ -4,11 +4,14 @@
   "description": "AndularJs app boilerplate with bower without using CLI",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "nodemon index.js"
   },
   "author": "Kenneth Rey Tamis",
   "license": "MIT",
   "dependencies": {
     "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
   }
 }
