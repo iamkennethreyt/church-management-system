@@ -45,7 +45,7 @@
                 <a href="/#!/dashboard/massreservation">
                     <li class="list-group-item d-flex justify-content-between align-items-center active">
                         Mass Reservation
-                        <span class="badge badge-primary badge-pill">14</span>
+                        <span class="badge badge-primary badge-pill">{{massreservedcount}}</span>
                     </li>
                 </a>
                 <a href="/#!/dashboard/newsfeed">
@@ -57,7 +57,7 @@
                 <a href="/#!/dashboard/contacts">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         Contacts
-                        <span class="badge badge-primary badge-pill">14</span>
+                        <span class="badge badge-primary badge-pill">{{listofcontactscount}}</span>
                     </li>
                 </a>
             </ul>
@@ -72,53 +72,19 @@
                         <table class="table table-bordered table-responsive-md table-striped text-center">
                             <tr>
                                 <th class="text-center">Person Name</th>
-                                <th class="text-center">Age</th>
-                                <th class="text-center">Company Name</th>
-                                <th class="text-center">Country</th>
-                                <th class="text-center">City</th>
+                                <th class="text-center">Type of Mass</th>
+                                <th class="text-center">Date of Mass</th>
+                                <th class="text-center">Details</th>
                                 <th class="text-center">Remove</th>
                             </tr>
-                            <tr>
-                                <td class="pt-3-half" contenteditable="true">Aurelia Vega</td>
-                                <td class="pt-3-half" contenteditable="true">30</td>
-                                <td class="pt-3-half" contenteditable="true">Deepends</td>
-                                <td class="pt-3-half" contenteditable="true">Spain</td>
-                                <td class="pt-3-half" contenteditable="true">Madrid</td>
+                            <tr ng-repeat="item in massreserved">
+                                <td class="pt-3-half" contenteditable="true">{{item.firstname}} {{item.lastname}}</td>
+                                <td class="pt-3-half" contenteditable="true">{{item.typeofmass}}</td>
+                                <td class="pt-3-half" contenteditable="true">{{item.dateofmass}}</td>
+                                <td class="pt-3-half" contenteditable="true">{{item.details}}</td>
                                 <td>
-                                    <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
-                                </td>
-                            </tr>
-                            <!-- This is our clonable table line -->
-                            <tr>
-                                <td class="pt-3-half" contenteditable="true">Guerra Cortez</td>
-                                <td class="pt-3-half" contenteditable="true">45</td>
-                                <td class="pt-3-half" contenteditable="true">Insectus</td>
-                                <td class="pt-3-half" contenteditable="true">USA</td>
-                                <td class="pt-3-half" contenteditable="true">San Francisco</td>
-                                <td>
-                                    <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
-                                </td>
-                            </tr>
-                            <!-- This is our clonable table line -->
-                            <tr>
-                                <td class="pt-3-half" contenteditable="true">Guadalupe House</td>
-                                <td class="pt-3-half" contenteditable="true">26</td>
-                                <td class="pt-3-half" contenteditable="true">Isotronic</td>
-                                <td class="pt-3-half" contenteditable="true">Germany</td>
-                                <td class="pt-3-half" contenteditable="true">Frankfurt am Main</td>
-                                <td>
-                                    <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
-                                </td>
-                            </tr>
-                            <!-- This is our clonable table line -->
-                            <tr class="hide">
-                                <td class="pt-3-half" contenteditable="true">Elisa Gallagher</td>
-                                <td class="pt-3-half" contenteditable="true">31</td>
-                                <td class="pt-3-half" contenteditable="true">Portica</td>
-                                <td class="pt-3-half" contenteditable="true">United Kingdom</td>
-                                <td class="pt-3-half" contenteditable="true">London</td>
-                                <td>
-                                    <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                                    <span class="table-remove"><button type="button" class="btn btn-warning btn-rounded btn-sm my-0"
+                                            ng-click="cancelreservation(item)">Cancel</button></span>
                                 </td>
                             </tr>
                         </table>
@@ -131,7 +97,7 @@
 </main>
 
 <!-- Footer -->
-<footer class="page-footer font-small primary-color fixed-bottom pt-4">
+<footer class="page-footer font-small primary-color pt-4">
 
     <!-- Footer Text -->
     <div class="container text-center text-md-left">
@@ -187,10 +153,10 @@
 <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form>
+            <form ng-submit="reservemass()" id="form">
                 <div class="modal-header text-center">
                     <h4 class="modal-title w-100 font-weight-bold">RESERVE MASS</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn-close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -200,7 +166,7 @@
                         <div class="col-md-6">
                             <!-- Material input -->
                             <div class="md-form form-group">
-                                <input type="text" class="form-control" id="firstName">
+                                <input type="text" class="form-control" id="firstName" ng-model="firstname">
                                 <label for="firstName">First Name</label>
                             </div>
                         </div>
@@ -210,7 +176,7 @@
                         <div class="col-md-6">
                             <!-- Material input -->
                             <div class="md-form form-group">
-                                <input type="password" class="form-control" id="lastName">
+                                <input type="text" class="form-control" id="lastName" ng-model="lastname">
                                 <label for="lastName">Last Name</label>
                             </div>
                         </div>
@@ -224,11 +190,9 @@
                         <div class="col-md-12">
                             <!-- Material input -->
                             <div class="md-form form-group">
-                                <select class="select-dropdown" id="massType">
+                                <select class="select-dropdown" id="massType" ng-model="selected">
                                     <option value="" disabled selected>Type of Mass</option>
-                                    <option value="1" class="dropdown-content">Option 1</option>
-                                    <option value="2" class="dropdown-content">Option 2</option>
-                                    <option value="3" class="dropdown-content">Option 3</option>
+                                    <option class="dropdown-content" ng-repeat="item in massCategory">{{item}}</option>
                                 </select>
                             </div>
                         </div>
@@ -236,7 +200,7 @@
                         <div class="col-md-12">
                             <!-- Material input -->
                             <div class="md-form form-group">
-                                <input type="date" class="form-control">
+                                <input type="date" class="form-control" ng-model="massdate">
                             </div>
                         </div>
                         <!-- Grid column -->
@@ -245,7 +209,7 @@
                         <div class="col-md-12">
                             <!-- Material input -->
                             <div class="md-form form-group">
-                                <textarea type="text" id="form7" class="md-textarea form-control" rows="3"></textarea>
+                                <textarea type="text" id="form7" class="md-textarea form-control" rows="3" ng-model="details"></textarea>
                                 <label for="form7">Details</label>
                             </div>
 

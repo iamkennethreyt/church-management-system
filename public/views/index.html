@@ -91,29 +91,32 @@ h6 {
                                     <h3 class="white-text">RESERVE MASS</h3>
                                 </div>
                                 <!--Body-->
-                                <div class="md-form">
-                                    <input type="text" id="form3" class="white-text form-control">
-                                    <label for="form3">Your name</label>
-                                </div>
-                                <div class="md-form">
-                                    <input type="email" id="form2" class="white-text form-control">
-                                    <label for="form2">Your email</label>
-                                </div>
-                                <div class="md-form">
-                                    <input type="text" id="form3" class="white-text form-control">
-                                    <label for="form3">Contact Number</label>
-                                </div>
-                                <!-- Material input -->
-                                <div class="md-form form-group">
-                                    <textarea type="text" id="form7" class="md-textarea form-control" rows="3"></textarea>
-                                    <label for="form7">Details</label>
-                                </div>
+                                <form ng-submit="contacts()" id="form">
+                                    <div class="md-form">
+                                        <input type="text" id="form3" class="white-text form-control" ng-model="name">
+                                        <label for="form3">Your name</label>
+                                    </div>
+                                    <div class="md-form">
+                                        <input type="email" id="form2" class="white-text form-control" ng-model="email">
+                                        <label for="form2">Your email</label>
+                                    </div>
+                                    <div class="md-form">
+                                        <input type="text" id="form3" class="white-text form-control" ng-model="contact">
+                                        <label for="form3">Contact Number</label>
+                                    </div>
+                                    <!-- Material input -->
+                                    <div class="md-form form-group">
+                                        <textarea type="text" id="form7" class="md-textarea form-control" rows="3"
+                                            ng-model="details"></textarea>
+                                        <label for="form7">Details</label>
+                                    </div>
 
 
-                                <div class="text-center mt-4">
-                                    <button class="btn btn-indigo">SEND RESERVATION</button>
-                                    <hr class="hr-light mb-3 mt-4">
-                                </div>
+                                    <div class="text-center mt-4">
+                                        <button class="btn btn-indigo">SEND RESERVATION</button>
+                                        <hr class="hr-light mb-3 mt-4">
+                                    </div>
+                                </form>
                             </div>
                         </div>
                         <!--/.Form-->

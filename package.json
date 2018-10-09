@@ -9,7 +9,10 @@
   "author": "Kenneth Rey Tamis",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.16.3"
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "morgan": "^1.9.1",
+    "mysql": "^2.16.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.4"
