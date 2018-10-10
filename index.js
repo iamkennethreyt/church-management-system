@@ -2,26 +2,28 @@ const express = require("express");
 const app = express();
 const mysql = require("mysql");
 const morgan = require("morgan");
+const moment = require("moment");
 const bodyParser = require("body-parser");
-
+const pool = require("./config.js");
 app.use(morgan("combined"));
 app.use(bodyParser.urlencoded({ extended: "true" }));
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
-const pool = mysql.createPool({
-  connectionLimit: 5,
-  host: "localhost",
-  port: 3306,
-  user: "root",
-  password: "",
-  database: "noebayut",
-  debug: false
-});
+// const pool = mysql.createPool({
+//   connectionLimit: 5,
+//   host: "localhost",
+//   port: 3306,
+//   user: "root",
+//   password: "",
+//   database: "noebayut",
+//   debug: false
+// });
 
 app.use(express.static(__dirname + "/public"));
+const timeNow = new Date();
+const timeinput = moment(timeNow);
 
-console.log(Date.now());
 pool.getConnection((err, connection) => {
   !err
     ? console.log("SUCCESSFULLY CONNECTED TO DATABASE")
@@ -39,8 +41,8 @@ app.post("/api/signin", (req, res) => {
           if (!err) {
             // console.log("success");
             results.length == 0
-              ? res.send("INVALID USER NAME OR PASSWORD")
-              : res.send("LOGIN SUCCESSFULLY");
+              ? res.send("INVALID USERNAME OR PASSWORD")
+              : res.json(results);
           }
         }
       );
@@ -53,6 +55,7 @@ app.post("/api/signin", (req, res) => {
 
 //RESERVE MASS
 app.post("/api/reservemass", (req, res) => {
+  const timeofmass = moment(req.body.dateofmass);
   pool.getConnection((err, connection) => {
     if (!err) {
       connection.query(
@@ -61,8 +64,8 @@ app.post("/api/reservemass", (req, res) => {
           VALUES( "${req.body.firstname}",
                   "${req.body.lastname}",
                   "${req.body.typeofmass}",
-                  "${req.body.dateofmass}",
-                  "${Date.now()}",
+                  "${timeofmass.format("L")}",
+                  "${timeinput.format("LLL")}",
                   "${req.body.details}")`,
         (error, results) =>
           !error
@@ -88,7 +91,7 @@ app.post("/api/contacts", (req, res) => {
                   "${req.body.email}",
                   "${req.body.contact}",
                   "${req.body.details}",
-                  "${Date.now()}")`,
+                  "${timeinput.format("LLL")}")`,
         (error, results) =>
           !error
             ? res.send("SUCCESSFULLY SEND YOUR MESSAGE TO THE ADMIN")

@@ -1,8 +1,42 @@
+let instance = {};
+
+const app = angular.module("app", ["ngRoute"]);
+
+app.config(function($routeProvider) {
+  $routeProvider
+    .when("/", {
+      templateUrl: "../views/index.html",
+      controller: "appController"
+    })
+    .when("/dashboard", {
+      templateUrl: "../views/dashboard.html",
+      controller: "appController"
+    })
+    .when("/dashboard/massreservation", {
+      templateUrl: "../views/dashboardmassreservation.html",
+      controller: "appController"
+    })
+    .when("/dashboard/newsfeed", {
+      templateUrl: "../views/dashboardnewsfeed.html",
+      controller: "appController"
+    })
+    .when("/dashboard/contacts", {
+      templateUrl: "../views/dashboardcontacts.html",
+      controller: "appController"
+    })
+    .when("/login", {
+      templateUrl: "../views/login.html",
+      controller: "appController"
+    })
+    .otherwise("/");
+});
+
 app.controller("appController", [
   "$scope",
   "$http",
   function(state, http) {
     state.massreserved = [];
+    state.user = instance;
     state.massCategory = [
       "BAPTISMAL",
       "DEATH",
@@ -29,8 +63,13 @@ app.controller("appController", [
             password: state.password
           })
           .then(res => {
-            alert(res.data);
-            window.location.href = "/#!/dashboard/";
+            if (res.data === "INVALID USERNAME OR PASSWORD") {
+              alert(res.data);
+            } else {
+              instance = res.data[0];
+              alert("SUCCESSFULLY SIGNIN");
+              window.location.href = "/#!/dashboard/";
+            }
           });
       }
     };
@@ -81,6 +120,8 @@ app.controller("appController", [
     http.get("/api/listofcontacts").then(res => {
       state.listofcontacts = res.data;
       state.listofcontactscount = res.data.length;
+      let d = new Date(res.data[0].time);
+      console.log("HELlloooo", Date.parse(res.data[0].time));
     });
 
     //CANCEL MASS RESERVATION
