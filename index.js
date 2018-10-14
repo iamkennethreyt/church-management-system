@@ -4,21 +4,21 @@ const mysql = require("mysql");
 const morgan = require("morgan");
 const moment = require("moment");
 const bodyParser = require("body-parser");
-const pool = require("./config.js");
+// const pool = require("./config.js");
 app.use(morgan("combined"));
 app.use(bodyParser.urlencoded({ extended: "true" }));
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
-// const pool = mysql.createPool({
-//   connectionLimit: 5,
-//   host: "localhost",
-//   port: 3306,
-//   user: "root",
-//   password: "",
-//   database: "noebayut",
-//   debug: false
-// });
+const pool = mysql.createPool({
+  connectionLimit: 5,
+  host: "localhost",
+  port: 3306,
+  user: "root",
+  password: "",
+  database: "noebayut",
+  debug: false
+});
 
 app.use(express.static(__dirname + "/public"));
 const timeNow = new Date();
