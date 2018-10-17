@@ -24,32 +24,18 @@ app.use(express.static(__dirname + "/public"));
 const timeNow = new Date();
 const timeinput = moment(timeNow);
 
-pool.getConnection((err, connection) => {
-  !err
-    ? console.log("SUCCESSFULLY CONNECTED TO DATABASE")
-    : console.log("NOT CONNECTED TO DATABASE");
-  connection.destroy();
-});
 app.post("/api/signin", (req, res) => {
   pool.getConnection((err, connection) => {
-    if (!err) {
-      connection.query(
-        `select * from users where username="${
-          req.body.username
-        }" and password="${req.body.password}"`,
-        (err, results) => {
-          if (!err) {
-            // console.log("success");
-            results.length == 0
-              ? res.send("INVALID USERNAME OR PASSWORD")
-              : res.json(results);
-          }
-        }
-      );
-      connection.release();
-    } else {
-      connection.release();
-    }
+    connection.query(
+      `select * from users where username="${
+        req.body.username
+      }" and password="${req.body.password}"`,
+      () => {
+        res.send("INVALID USERNAME OR PASSWORD");
+        connection.release();
+        connection.destroy();
+      }
+    );
   });
 });
 
@@ -57,9 +43,8 @@ app.post("/api/signin", (req, res) => {
 app.post("/api/reservemass", (req, res) => {
   const timeofmass = moment(req.body.dateofmass);
   pool.getConnection((err, connection) => {
-    if (!err) {
-      connection.query(
-        `INSERT INTO
+    connection.query(
+      `INSERT INTO
           massreservation(firstname, lastname, typeofmass, dateofmass, timeinput, details)
           VALUES( "${req.body.firstname}",
                   "${req.body.lastname}",
@@ -67,96 +52,71 @@ app.post("/api/reservemass", (req, res) => {
                   "${timeofmass.format("L")}",
                   "${timeinput.format("LLL")}",
                   "${req.body.details}")`,
-        (error, results) =>
-          !error
-            ? res.send("SUCCESSFULLY REGISTERED")
-            : res.send("THERE'S SOMETHING WRONG RESERVING A MASS")
-      );
-      connection.release();
-    } else {
-      res.json("Error connecting to db. " + err);
-      connection.release();
-    }
+      () => {
+        res.send("SUCCESSFULLY REGISTERED");
+        connection.release();
+        connection.destroy();
+      }
+    );
   });
 });
 
 //RESERVE MASS
 app.post("/api/contacts", (req, res) => {
   pool.getConnection((err, connection) => {
-    if (!err) {
-      connection.query(
-        `INSERT INTO
+    connection.query(
+      `INSERT INTO
           contacts(name, email, contact, details, time)
           VALUES( "${req.body.name}",
                   "${req.body.email}",
                   "${req.body.contact}",
                   "${req.body.details}",
                   "${timeinput.format("LLL")}")`,
-        (error, results) =>
-          !error
-            ? res.send("SUCCESSFULLY SEND YOUR MESSAGE TO THE ADMIN")
-            : res.send("YOUR MESSAGE IS NOT SUCCESSFULLY SEND")
-      );
-      connection.release();
-    } else {
-      res.json("Error connecting to db. " + err);
-      connection.release();
-    }
+      () => {
+        res.send("SUCCESSFULLY SEND YOUR MESSAGE TO THE ADMIN");
+        connection.release();
+        connection.destroy();
+      }
+    );
   });
 });
 
 //MASS RESERVED LIST
 app.get("/api/massreserved", (req, res) => {
   pool.getConnection((err, connection) => {
-    if (!err) {
-      connection.query(
-        "SELECT * FROM massreservation ORDER BY timeofmass",
-        (error, results) => {
-          if (!error) {
-            res.json(results);
-            connection.release();
-          }
-        }
-      );
-    } else {
-      connection.release();
-    }
+    connection.query(
+      "SELECT * FROM massreservation ORDER BY timeofmass",
+      (error, results) => {
+        res.json(results);
+        connection.release();
+        connection.destroy();
+      }
+    );
   });
 });
 
 //LIST OF CONTACTS
 app.get("/api/listofcontacts", (req, res) => {
   pool.getConnection((err, connection) => {
-    if (!err) {
-      connection.query(
-        "SELECT * FROM contacts ORDER BY time DESC",
-        (error, results) => {
-          if (!error) {
-            res.json(results);
-          }
-        }
-      );
+    connection.query("SELECT * FROM contacts ORDER BY time DESC", () => {
+      res.json(results);
       connection.release();
-    } else {
-      connection.release();
-    }
+      connection.destroy();
+    });
   });
 });
 
 //CANCEL MASS RESERVED
 app.post("/api/cancelmass", (req, res) => {
   pool.getConnection((err, connection) => {
-    if (!err) {
-      connection.query(
-        `DELETE FROM massreservation WHERE id = "${req.body.ID}"`,
-        err =>
-          !err
-            ? res.send("SUCCESSFULLY CANCEL THE RESERVATION")
-            : res.send("SOMETHING ERROR TO CANCEL!")
-      ); //value from the user
-    } else {
-      res.json("Error connecting to db. " + err);
-    }
+    connection.query(
+      `DELETE FROM massreservation WHERE id = "${req.body.ID}"`,
+      () => {
+        res.send("SUCCESSFULLY CANCEL THE RESERVATION");
+        connection.release();
+        connection.destroy();
+      }
+    );
   });
 });
 
