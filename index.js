@@ -4,7 +4,7 @@ const mysql = require("mysql");
 const morgan = require("morgan");
 const moment = require("moment");
 const bodyParser = require("body-parser");
-// const pool = require("./config.js");
+
 app.use(morgan("combined"));
 app.use(bodyParser.urlencoded({ extended: "true" }));
 app.use(bodyParser.json());
@@ -25,13 +25,18 @@ const timeNow = new Date();
 const timeinput = moment(timeNow);
 
 app.post("/api/signin", (req, res) => {
+  console.log(req.body.username + " " + req.body.password);
   pool.getConnection((err, connection) => {
     connection.query(
       `select * from users where username="${
         req.body.username
       }" and password="${req.body.password}"`,
-      () => {
-        res.send("INVALID USERNAME OR PASSWORD");
+      (err, row) => {
+        if (row.length === 0) {
+          res.send("INVALID USERNAME OR PASSWORD");
+        } else {
+          res.send("SUCCESSFULLY SIGNIN");
+        }
         connection.release();
         connection.destroy();
       }
@@ -98,11 +103,14 @@ app.get("/api/massreserved", (req, res) => {
 //LIST OF CONTACTS
 app.get("/api/listofcontacts", (req, res) => {
   pool.getConnection((err, connection) => {
-    connection.query("SELECT * FROM contacts ORDER BY time DESC", () => {
-      res.json(results);
-      connection.release();
-      connection.destroy();
-    });
+    connection.query(
+      "SELECT * FROM contacts ORDER BY time DESC",
+      (error, results) => {
+        res.json(results);
+        connection.release();
+        connection.destroy();
+      }
+    );
   });
 });
 

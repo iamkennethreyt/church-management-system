@@ -63,12 +63,12 @@ app.controller("appController", [
             password: state.password
           })
           .then(res => {
-            if (res.data === "INVALID USERNAME OR PASSWORD") {
+            if (res.data === "SUCCESSFULLY SIGNIN") {
               alert(res.data);
-            } else {
               instance = res.data[0];
-              alert("SUCCESSFULLY SIGNIN");
               window.location.href = "/#!/dashboard/";
+            } else {
+              alert("INVALID USERNAME OR PASSWORD");
             }
           });
       }
@@ -126,11 +126,18 @@ app.controller("appController", [
 
     //CANCEL MASS RESERVATION
     state.cancelreservation = param => {
-      // state.massreserved.filter(ms => ms.ID !== param.ID);
-      state.massreserved.splice(state.massreserved.indexOf(param), 1);
-      http.post("/api/cancelmass", {
-        ID: param.ID
-      });
+      if (confirm("Are you sure you want to cancel reservation?")) {
+        state.massreserved.splice(state.massreserved.indexOf(param), 1);
+        http.post("/api/cancelmass", {
+          ID: param.ID
+        });
+      }
+    };
+
+    state.logout = () => {
+      if (confirm("Are you sure you want to logout?")) {
+        window.location.href = "/#!/";
+      }
     };
   }
 ]);
